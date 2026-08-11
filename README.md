@@ -26,7 +26,7 @@ Supports tagging and outputting multiple batched inputs.
 - **model**: The interrogation model to use. You can try them out here [WaifuDiffusion v1.4 Tags](https://huggingface.co/spaces/SmilingWolf/wd-v1-4-tags). The newest model (as of writing) is `MOAT` and the most popular is `ConvNextV2`.  
 - **threshold**: The score for the tag to be considered valid
 - **character_threshold**: The score for the character tag to be considered valid
-- **exclude_tags** A comma separated list of tags that should not be included in the results
+- **exclude_tags** A comma separated list of tags that should not be included in the results. Supports wildcard matching (`*`, `?`, `[seq]`) via `fnmatch`, e.g. `* hair` excludes any tag ending in "hair" such as `brown hair` or `long hair`
 
 Quick interrogation of images is also available on any node that is displaying an image, e.g. a `LoadImage`, `SaveImage`, `PreviewImage` node.  
 Simply right click on the node (or if displaying multiple images, on the image you want to interrogate) and select `WD14 Tagger` from the menu  

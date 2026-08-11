@@ -5,6 +5,7 @@ import asyncio
 import aiohttp
 import numpy as np
 import csv
+import fnmatch
 import os
 import sys
 import onnxruntime as ort
@@ -98,8 +99,13 @@ async def tag(image, model_name, threshold=0.35, character_threshold=0.85, exclu
     character = [item for item in result[character_index:] if item[1] > character_threshold]
 
     all = character + general
-    remove = [s.strip() for s in exclude_tags.lower().split(",")]
-    all = [tag for tag in all if tag[0] not in remove]
+    # exclude_tagsをワイルドカード対応（fnmatch）でフィルタする
+    # 例: "* hair" -> "brown hair", "long hair" などを除外
+    remove = [s.strip() for s in exclude_tags.lower().split(",") if s.strip()]
+    all = [
+        tag for tag in all
+        if not any(fnmatch.fnmatch(tag[0].lower(), pattern) for pattern in remove)
+    ]
 
     res = ("" if trailing_comma else ", ").join((item[0].replace("(", "\\(").replace(")", "\\)") + (", " if trailing_comma else "") for item in all))
 
