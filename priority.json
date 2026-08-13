@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "groups": [
+    {"name": "hair", "patterns": ["hair", "twintails?", "ponytail", "braid", "bun\\b", "bangs?", "ahoge", "drill", "sidelocks?", "hime cut"]},
+    {"name": "eyes", "patterns": ["eye"]},
+    {"name": "face_expression", "patterns": ["blush", "smile", "expression", "open mouth", "closed mouth", "tears?"]},
+    {"name": "body", "patterns": ["breast", "skin", "body", "muscular", "thigh"]},
+    {"name": "clothing", "patterns": ["dress", "shirt", "skirt", "uniform", "jacket", "pants", "shorts", "swimsuit", "bikini", "clothes", "clothing", "wear", "costume"]},
+    {"name": "accessory", "patterns": ["ribbon", "bow", "hat", "glasses", "earrings?", "necklace", "gloves", "socks", "shoes", "boots"]},
+    {"name": "pose_action", "patterns": ["standing", "sitting", "lying", "pose", "looking", "hand", "arm"]},
+    {"name": "background_scene", "patterns": ["background", "sky", "indoors", "outdoors", "room", "scenery"]},
+    {"name": "quality_meta", "patterns": ["^masterpiece$", "^best quality$", "^high quality$", "^highres$", "^absurdres$", "^rating:", "^official art$"]}
+  ]
+}

@@ -15,6 +15,7 @@ from server import PromptServer
 from aiohttp import web
 import folder_paths
 from .pysssss import get_ext_dir, get_comfy_dir, download_to_file, update_node_status, wait_for_async, get_extension_config, log
+from .tag_priority import reorder_general_tags, is_reorder_enabled
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.realpath(__file__)), "comfy"))
 
 config = get_extension_config()
@@ -97,6 +98,11 @@ async def tag(image, model_name, threshold=0.35, character_threshold=0.85, exclu
     # rating = max(result[:general_index], key=lambda x: x[1])
     general = [item for item in result[general_index:character_index] if item[1] > threshold]
     character = [item for item in result[character_index:] if item[1] > character_threshold]
+
+    # generalタグ確定後、characterとの合成前に優先度並べ替えを適用
+    # (キャラ名は最優先固定のため、reorder対象はgeneralのみ)
+    if is_reorder_enabled():
+        general = reorder_general_tags(general)
 
     all = character + general
     # exclude_tagsをワイルドカード対応（fnmatch）でフィルタする
